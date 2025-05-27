@@ -1,0 +1,50 @@
+def calcular_distancia_viagem_corrigida(velocidade_media_nos: float, tempo_viagem_minutos: float) -> float:
+    """
+    Calcula a distância percorrida em quilômetros com base na velocidade média
+    em nós e no tempo de viagem em minutos.
+
+    Args:
+        velocidade_media_nos: A velocidade média da aeronave em nós.
+        tempo_viagem_minutos: O tempo total da viagem em minutos.
+
+    Returns:
+        A distância total da viagem em quilômetros.
+    """
+    if velocidade_media_nos < 0 or tempo_viagem_minutos < 0:
+        raise ValueError("Velocidade e tempo de viagem não podem ser negativos.")
+
+    # 1. Converter tempo de minutos para horas
+    tempo_viagem_horas = tempo_viagem_minutos / 60.0
+
+    # 2. Calcular distância em milhas náuticas
+    # Velocidade (nós) = Milhas Náuticas / Hora
+    distancia_milhas_nauticas = velocidade_media_nos * tempo_viagem_horas
+
+    # 3. Converter milhas náuticas para quilômetros
+    # 1 Milha Náutica = 1.852 km
+    fator_conversao_mn_para_km = 1.852
+    distancia_km = distancia_milhas_nauticas * fator_conversao_mn_para_km
+
+    return distancia_km
+
+# Exemplo de uso para teste (baseado nos "Etapas para reproduzir")
+# Suponha que os instrumentos de bordo relataram:
+# Velocidade média: 500 nós
+# Tempo de viagem: 120 minutos
+
+velocidade_exemplo_nos = 500.0
+tempo_exemplo_minutos = 120.0
+
+try:
+    distancia_calculada_km = calcular_distancia_viagem_corrigida(velocidade_exemplo_nos, tempo_exemplo_minutos)
+    print(f"Velocidade: {velocidade_exemplo_nos} nós")
+    print(f"Tempo de Viagem: {tempo_exemplo_minutos} minutos")
+    print(f"Distância Calculada Corrigida: {distancia_calculada_km:.2f} km")
+
+    # Verificação manual para o exemplo:
+    # Tempo em horas = 120 / 60 = 2 horas
+    # Distância em milhas náuticas = 500 nós * 2 horas = 1000 milhas náuticas
+    # Distância em km = 1000 milhas náuticas * 1.852 km/milha náutica = 1852 km
+    # A função deve retornar 1852.00
+except ValueError as e:
+    print(f"Erro: {e}"
